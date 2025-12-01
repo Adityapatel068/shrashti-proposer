@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+
+    <!-- Cute romantic font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0px 10px 25px rgba(255, 120, 150, 0.4);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 0;
+            color: #ff4d6d;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: scale(1.07);
+            background: #ff5252;
+        }
+
+        #noButton {
+            background: #6c757d;
+            transition: all 0.4s ease;
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffe6ea;
+            border-radius: 10px;
+            display: none;
+            font-size: 1rem;
+        }
+
+        .heart {
+            position: fixed;
+            color: #ff4d6d;
+            font-size: 1.8rem;
+            animation: float 3s linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(50vh) scale(0.6); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-60vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Dear Shrasti,</h1>
+
+    <p>I love you till the very end — and I’ll never leave your side. ❤️</p>
+
+    <p>Will you make me the happiest person and say yes?</p>
+
+    <button onclick="showResponse('yes')">Yes 💖</button>
+    <button id="noButton" onclick="handleNo()">No 😭</button>
+
+    <div id="response">
+        <p id="message"></p>
+    </div>
+</div>
+
+<script>
+    let noClickCount = 0;
+
+    const messages = [
+        "Arre yaar ek chance toh banta hai 😭",
+        "Such an easy question… try again 😅",
+        "Think again… main itna bhi bura nahi 😌",
+        "Bas ek haan se duniya badal jayegi 💗",
+        "Please? Pretty please? 🥺",
+        "Dil tod rahi ho tum… 💔",
+        "Fine... I'll still wait for you 😔"
+    ];
+
+    function showResponse(ans) {
+        let box = document.getElementById("response");
+        let msg = document.getElementById("message");
+
+        if (ans === "yes") {
+            msg.innerHTML = "Yay!!! You just made my whole world brighter! 💕✨";
+            box.style.display = "block";
+            createHeartRain();
+        }
+    }
+
+    function handleNo() {
+        noClickCount++;
+        const noBtn = document.getElementById("noButton");
+        const box = document.getElementById("response");
+        const msg = document.getElementById("message");
+
+        // move button randomly
+        const x = Math.random() * 300 - 150;
+        const y = Math.random() * 200 - 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+        msg.textContent = messages[Math.min(noClickCount - 1, messages.length - 1)];
+        box.style.display = "block";
+    }
+
+    // hearts floating
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }
+
+    function createHeartRain() {
+        let interval = setInterval(createHeart, 200);
+        setTimeout(() => clearInterval(interval), 3000);
+    }
+</script>
+
+</body>
+</html>
